@@ -1,4 +1,4 @@
-import { login,logout } from "../user/userSlice";
+import { loginAsync, registerAsync,logout } from "../user/userSlice";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import {sha256} from 'crypto-hash';
@@ -13,8 +13,24 @@ const Login = () => {
     const handleTextInput = async (pw) => {
         let result = "";
         result = await sha256(pw)
-        dispatch(login({username:username,password: result}))
-    } 
+        return result;
+    }
+    
+    const loginUser = async () => {
+        let passHash = await handleTextInput(password);
+        dispatch(loginAsync(
+            { username: username,
+              password: passHash}
+              ))
+    }
+
+    const registerUser = async () => {
+        let passHash = await handleTextInput(password);
+        dispatch(registerAsync(
+            { username: username,
+              password: passHash}
+              ))
+    }
 
 
     return (
@@ -33,7 +49,8 @@ const Login = () => {
                     <input type="checkbox" className="form-check-input" id="exampleCheck1" />
                     <label className="form-check-label" htmlFor="exampleCheck1">Check me out</label>
                 </div>
-                <button  onClick={() =>  handleTextInput(password)} className="btn btn-primary">Login</button>
+                <button  onClick={() =>  loginUser()} className="btn btn-primary">Login</button>
+                <button  onClick={() => registerUser()} className="btn btn-primary">Register</button>
                 <button onClick ={() => dispatch(logout())}className="btn btn-primary">Logout</button>
             </div>
 
