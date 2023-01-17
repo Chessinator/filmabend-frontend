@@ -689,6 +689,24 @@ export class Api extends HttpClient {
         ...params,
       }),
   };
+  register = {
+    /**
+     * No description
+     *
+     * @tags account-controller
+     * @name UserRegister
+     * @request POST:/register
+     */
+    userRegister: (data, params = {}) =>
+      this.request({
+        path: `/register`,
+        method: "POST",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+  };
   login = {
     /**
      * No description

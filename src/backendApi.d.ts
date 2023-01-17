@@ -31,6 +31,21 @@ export declare type Links = Record<string, Link>;
 export interface RepresentationModelObject {
   _links?: Links;
 }
+export interface CollectionModelEntityModelGenre {
+  _embedded?: {
+    genres?: EntityModelGenre[];
+  };
+  _links?: Links;
+}
+export interface EntityModelGenre {
+  name?: string;
+  _links?: Links;
+}
+export interface Genre {
+  /** @format int32 */
+  id?: number;
+  name?: string;
+}
 export interface Account {
   /** @format int64 */
   id?: number;
@@ -49,11 +64,6 @@ export interface EntityModelAccount {
   name?: string;
   passwordHash?: string;
   _links?: Links;
-}
-export interface Genre {
-  /** @format int32 */
-  id?: number;
-  name?: string;
 }
 export interface Movie {
   /** @format int64 */
@@ -74,16 +84,6 @@ export interface CollectionModelObject {
   _embedded?: {
     objects?: object[];
   };
-  _links?: Links;
-}
-export interface CollectionModelEntityModelGenre {
-  _embedded?: {
-    genres?: EntityModelGenre[];
-  };
-  _links?: Links;
-}
-export interface EntityModelGenre {
-  name?: string;
   _links?: Links;
 }
 export interface EntityModelMovie {
@@ -128,7 +128,7 @@ export interface MovieResponse {
 }
 export interface LoginData {
   name?: string;
-  password?: string;
+  passwordHash?: string;
 }
 export interface Link {
   href?: string;
@@ -589,6 +589,16 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * @request GET:/profile/movies
      */
     descriptor1: (params?: RequestParams) => Promise<HttpResponse<string, any>>;
+  };
+  register: {
+    /**
+     * No description
+     *
+     * @tags account-controller
+     * @name UserRegister
+     * @request POST:/register
+     */
+    userRegister: (data: LoginData, params?: RequestParams) => Promise<HttpResponse<Account, any>>;
   };
   login: {
     /**
