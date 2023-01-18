@@ -1,9 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { Api } from "../backendApi";
+import { useNavigate } from "react-router";
+import { Api } from "../../backendApi";
 
 const api = new Api();
 const initialState = {
-  account: "",
+  account: false,
   status: "idle",
 }
 
@@ -30,6 +31,7 @@ const userSlice = createSlice({
       .addCase(registerAsync.fulfilled, (state, action) => {
         state.status = 'idle';
         state.account = action.payload;
+
       });
   },
 })

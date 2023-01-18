@@ -31,12 +31,6 @@ export declare type Links = Record<string, Link>;
 export interface RepresentationModelObject {
   _links?: Links;
 }
-export interface CollectionModelEntityModelGenre {
-  _embedded?: {
-    genres?: EntityModelGenre[];
-  };
-  _links?: Links;
-}
 export interface EntityModelGenre {
   name?: string;
   _links?: Links;
@@ -46,23 +40,27 @@ export interface Genre {
   id?: number;
   name?: string;
 }
+export interface CollectionModelEntityModelGenre {
+  _embedded?: {
+    genres?: EntityModelGenre[];
+  };
+  _links?: Links;
+}
 export interface Account {
   /** @format int64 */
   id?: number;
   name?: string;
   /** @uniqueItems true */
-  favorites?: Movie[];
+  favoriteMovies?: Movie[];
+  /** @uniqueItems true */
+  favoriteGenres?: Genre[];
   passwordHash?: string;
-}
-export interface CollectionModelEntityModelAccount {
-  _embedded?: {
-    accounts?: EntityModelAccount[];
-  };
-  _links?: Links;
+  city?: string;
 }
 export interface EntityModelAccount {
   name?: string;
   passwordHash?: string;
+  city?: string;
   _links?: Links;
 }
 export interface Movie {
@@ -74,9 +72,15 @@ export interface Movie {
   original_title?: string;
   title?: string;
 }
-export interface CollectionModelMovie {
+export interface CollectionModelEntityModelAccount {
   _embedded?: {
-    movies?: MovieResponse[];
+    accounts?: EntityModelAccount[];
+  };
+  _links?: Links;
+}
+export interface CollectionModelGenre {
+  _embedded?: {
+    genres?: GenreResponse[];
   };
   _links?: Links;
 }
@@ -86,24 +90,26 @@ export interface CollectionModelObject {
   };
   _links?: Links;
 }
+export interface CollectionModelMovie {
+  _embedded?: {
+    movies?: MovieResponse[];
+  };
+  _links?: Links;
+}
 export interface EntityModelMovie {
   imdb_id?: string;
   original_title?: string;
   title?: string;
   _links?: Links;
 }
-export interface CollectionModelGenre {
-  _embedded?: {
-    genres?: GenreResponse[];
-  };
-  _links?: Links;
-}
 export interface AccountRequestBody {
   /** @format int64 */
   id?: number;
   name?: string;
-  favorites?: string[];
+  favoriteMovies?: string[];
+  favoriteGenres?: string[];
   passwordHash?: string;
+  city?: string;
 }
 export interface GenreRequestBody {
   /** @format int32 */
@@ -290,13 +296,80 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
       params?: RequestParams,
     ) => Promise<HttpResponse<EntityModelAccount, any>>;
     /**
-     * @description get-movie-by-account-Id
+     * @description get-genre-by-account-Id
      *
      * @tags account-property-reference-controller
      * @name FollowPropertyReferenceAccountGet1
-     * @request GET:/accounts/{id}/favorites
+     * @request GET:/accounts/{id}/favoriteGenres
      */
     followPropertyReferenceAccountGet1: (
+      id: string,
+      params?: RequestParams,
+    ) => Promise<HttpResponse<CollectionModelGenre, void>>;
+    /**
+     * @description update-genre-by-account-Id
+     *
+     * @tags account-property-reference-controller
+     * @name CreatePropertyReferenceAccountPut
+     * @request PUT:/accounts/{id}/favoriteGenres
+     */
+    createPropertyReferenceAccountPut: (
+      id: string,
+      data: CollectionModelObject,
+      params?: RequestParams,
+    ) => Promise<HttpResponse<CollectionModelGenre, any>>;
+    /**
+     * @description delete-genre-by-account-Id
+     *
+     * @tags account-property-reference-controller
+     * @name DeletePropertyReferenceAccountDelete
+     * @request DELETE:/accounts/{id}/favoriteGenres
+     */
+    deletePropertyReferenceAccountDelete: (id: string, params?: RequestParams) => Promise<HttpResponse<void, void>>;
+    /**
+     * @description patch-genre-by-account-Id
+     *
+     * @tags account-property-reference-controller
+     * @name CreatePropertyReferenceAccountPatch
+     * @request PATCH:/accounts/{id}/favoriteGenres
+     */
+    createPropertyReferenceAccountPatch: (
+      id: string,
+      data: CollectionModelObject,
+      params?: RequestParams,
+    ) => Promise<HttpResponse<CollectionModelGenre, any>>;
+    /**
+     * @description get-genre-by-account-Id
+     *
+     * @tags account-property-reference-controller
+     * @name FollowPropertyReferenceAccountGet
+     * @request GET:/accounts/{id}/favoriteGenres/{propertyId}
+     */
+    followPropertyReferenceAccountGet: (
+      id: string,
+      propertyId: string,
+      params?: RequestParams,
+    ) => Promise<HttpResponse<CollectionModelGenre, void>>;
+    /**
+     * @description delete-genre-by-account-Id
+     *
+     * @tags account-property-reference-controller
+     * @name DeletePropertyReferenceIdAccountDelete
+     * @request DELETE:/accounts/{id}/favoriteGenres/{propertyId}
+     */
+    deletePropertyReferenceIdAccountDelete: (
+      id: string,
+      propertyId: string,
+      params?: RequestParams,
+    ) => Promise<HttpResponse<void, void>>;
+    /**
+     * @description get-movie-by-account-Id
+     *
+     * @tags account-property-reference-controller
+     * @name FollowPropertyReferenceAccountGet21
+     * @request GET:/accounts/{id}/favoriteMovies
+     */
+    followPropertyReferenceAccountGet21: (
       id: string,
       params?: RequestParams,
     ) => Promise<HttpResponse<CollectionModelMovie, void>>;
@@ -304,10 +377,10 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * @description update-movie-by-account-Id
      *
      * @tags account-property-reference-controller
-     * @name CreatePropertyReferenceAccountPut
-     * @request PUT:/accounts/{id}/favorites
+     * @name CreatePropertyReferenceAccountPut1
+     * @request PUT:/accounts/{id}/favoriteMovies
      */
-    createPropertyReferenceAccountPut: (
+    createPropertyReferenceAccountPut1: (
       id: string,
       data: CollectionModelObject,
       params?: RequestParams,
@@ -316,18 +389,18 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * @description delete-movie-by-account-Id
      *
      * @tags account-property-reference-controller
-     * @name DeletePropertyReferenceAccountDelete
-     * @request DELETE:/accounts/{id}/favorites
+     * @name DeletePropertyReferenceAccountDelete1
+     * @request DELETE:/accounts/{id}/favoriteMovies
      */
-    deletePropertyReferenceAccountDelete: (id: string, params?: RequestParams) => Promise<HttpResponse<void, void>>;
+    deletePropertyReferenceAccountDelete1: (id: string, params?: RequestParams) => Promise<HttpResponse<void, void>>;
     /**
      * @description patch-movie-by-account-Id
      *
      * @tags account-property-reference-controller
-     * @name CreatePropertyReferenceAccountPatch
-     * @request PATCH:/accounts/{id}/favorites
+     * @name CreatePropertyReferenceAccountPatch1
+     * @request PATCH:/accounts/{id}/favoriteMovies
      */
-    createPropertyReferenceAccountPatch: (
+    createPropertyReferenceAccountPatch1: (
       id: string,
       data: CollectionModelObject,
       params?: RequestParams,
@@ -336,10 +409,10 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * @description get-movie-by-account-Id
      *
      * @tags account-property-reference-controller
-     * @name FollowPropertyReferenceAccountGet
-     * @request GET:/accounts/{id}/favorites/{propertyId}
+     * @name FollowPropertyReferenceAccountGet2
+     * @request GET:/accounts/{id}/favoriteMovies/{propertyId}
      */
-    followPropertyReferenceAccountGet: (
+    followPropertyReferenceAccountGet2: (
       id: string,
       propertyId: string,
       params?: RequestParams,
@@ -348,10 +421,10 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * @description delete-movie-by-account-Id
      *
      * @tags account-property-reference-controller
-     * @name DeletePropertyReferenceIdAccountDelete
-     * @request DELETE:/accounts/{id}/favorites/{propertyId}
+     * @name DeletePropertyReferenceIdAccountDelete1
+     * @request DELETE:/accounts/{id}/favoriteMovies/{propertyId}
      */
-    deletePropertyReferenceIdAccountDelete: (
+    deletePropertyReferenceIdAccountDelete1: (
       id: string,
       propertyId: string,
       params?: RequestParams,
@@ -589,16 +662,6 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * @request GET:/profile/movies
      */
     descriptor1: (params?: RequestParams) => Promise<HttpResponse<string, any>>;
-  };
-  register: {
-    /**
-     * No description
-     *
-     * @tags account-controller
-     * @name UserRegister
-     * @request POST:/register
-     */
-    userRegister: (data: LoginData, params?: RequestParams) => Promise<HttpResponse<Account, any>>;
   };
   login: {
     /**
