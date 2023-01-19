@@ -31,18 +31,45 @@ export declare type Links = Record<string, Link>;
 export interface RepresentationModelObject {
   _links?: Links;
 }
-export interface EntityModelGenre {
-  name?: string;
-  _links?: Links;
-}
 export interface Genre {
   /** @format int32 */
   id?: number;
   name?: string;
 }
+export interface EntityModelGenre {
+  name?: string;
+  _links?: Links;
+}
 export interface CollectionModelEntityModelGenre {
   _embedded?: {
     genres?: EntityModelGenre[];
+  };
+  _links?: Links;
+}
+export interface Movie {
+  /** @format int64 */
+  id?: number;
+  /** @uniqueItems true */
+  genre?: Genre[];
+  imdb_id?: string;
+  original_title?: string;
+  title?: string;
+}
+export interface EntityModelMovie {
+  imdb_id?: string;
+  original_title?: string;
+  title?: string;
+  _links?: Links;
+}
+export interface CollectionModelGenre {
+  _embedded?: {
+    genres?: GenreResponse[];
+  };
+  _links?: Links;
+}
+export interface CollectionModelObject {
+  _embedded?: {
+    objects?: object[];
   };
   _links?: Links;
 }
@@ -63,30 +90,9 @@ export interface EntityModelAccount {
   city?: string;
   _links?: Links;
 }
-export interface Movie {
-  /** @format int64 */
-  id?: number;
-  /** @uniqueItems true */
-  genre?: Genre[];
-  imdb_id?: string;
-  original_title?: string;
-  title?: string;
-}
 export interface CollectionModelEntityModelAccount {
   _embedded?: {
     accounts?: EntityModelAccount[];
-  };
-  _links?: Links;
-}
-export interface CollectionModelGenre {
-  _embedded?: {
-    genres?: GenreResponse[];
-  };
-  _links?: Links;
-}
-export interface CollectionModelObject {
-  _embedded?: {
-    objects?: object[];
   };
   _links?: Links;
 }
@@ -94,12 +100,6 @@ export interface CollectionModelMovie {
   _embedded?: {
     movies?: MovieResponse[];
   };
-  _links?: Links;
-}
-export interface EntityModelMovie {
-  imdb_id?: string;
-  original_title?: string;
-  title?: string;
   _links?: Links;
 }
 export interface AccountRequestBody {
@@ -217,7 +217,7 @@ export declare class HttpClient<SecurityDataType = unknown> {
 /**
  * @title OpenAPI definition
  * @version v0
- * @baseUrl http://localhost:8080
+ * @baseUrl https://moviemeetme.azurewebsites.net
  */
 export declare class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
   accounts: {

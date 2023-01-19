@@ -17,7 +17,7 @@ export var ContentType;
   ContentType["Text"] = "text/plain";
 })(ContentType || (ContentType = {}));
 export class HttpClient {
-  baseUrl = "http://localhost:8080";
+  baseUrl = "https://moviemeetme.azurewebsites.net";
   securityData = null;
   securityWorker;
   abortControllers = new Map();
@@ -154,7 +154,7 @@ export class HttpClient {
 /**
  * @title OpenAPI definition
  * @version v0
- * @baseUrl http://localhost:8080
+ * @baseUrl https://moviemeetme.azurewebsites.net
  */
 export class Api extends HttpClient {
   accounts = {

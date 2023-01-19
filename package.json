@@ -22,7 +22,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "prestart": "sta -p http://localhost:8080/v3/api-docs -o ./src -n backendApi.js --js",
+    "prestart": "sta -p ./src/api.json -o ./src -n backendApi.js --js",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
