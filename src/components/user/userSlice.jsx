@@ -13,7 +13,7 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     logout: (state) => {
-      state.account = null;
+      state.account = false;
     },
   },
   extraReducers: (builder) => {
@@ -30,8 +30,6 @@ const userSlice = createSlice({
       })
       .addCase(registerAsync.fulfilled, (state, action) => {
         state.status = 'idle';
-        state.account = action.payload;
-
       });
   },
 })

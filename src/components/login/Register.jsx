@@ -22,30 +22,47 @@ const Register = () => {
         } else {
             favGenres = [...favGenres, genre]
         }
-        console.log(favGenres)
     }
 
     const register = async (e) => {
         e.preventDefault();
-        if (password === confirmPw) {
-            console.log("success")
+        if (password !== confirmPw) {
+            document.getElementById("modalBtn").setAttribute("data-bs-toggle", "modal")
+            document.getElementById("modalBtn").click();
+            document.getElementById("modalBtn").removeAttribute("data-bs-toggle", "modal")
+        } else {
+            let favs = favGenres.map(f => f._links.self.href);
             let registerData = {
                 name: user,
                 passwordHash: await handleTextInput(password),
                 city: city,
+                favoriteGenres: favs,
             }
+            console.log(registerData);
             dispatch(registerAsync(registerData));
-        } else {
-            console.log("fail")
-            return (<div className="alert alert-danger" role="alert">
-                Passworter stimmen nicht überein!
-            </div>);
         }
-
     }
 
     return (
         <div className="container d-flex">
+
+            <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h1 className="modal-title fs-5" id="staticBackdropLabel">Fehler beim registrieren</h1>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div className="modal-body">
+                            Passwörter stimmen nicht überein.
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-primary" data-bs-dismiss="modal">Understood</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div className="col-6">
                 <form className="g-3 needs-validation" noValidate>
                     <h2 className="col-md12">Benutzerdaten</h2>
@@ -76,7 +93,7 @@ const Register = () => {
                         <input type="text" className="form-control" id="validationCustom04" onChange={(e) => setCity(e.target.value)} required />
                     </div>
                     <div className="col-12">
-                        <button type="submit" className="btn btn-primary" onClick={(e) => register(e)} >Registrieren</button>
+                        <button type="submit" id="modalBtn" data-bs-target="#staticBackdrop" className="btn btn-primary" onClick={(e) => register(e)} >Registrieren</button>
                     </div>
                 </form>
             </div>
@@ -90,7 +107,8 @@ const Register = () => {
 
 
 
-        </div>
+
+        </div >
 
     )
 

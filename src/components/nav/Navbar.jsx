@@ -5,34 +5,40 @@ import { NavLink } from "react-router-dom";
 import { getGenres } from "../genre/genreSlice";
 import { Outlet } from "react-router-dom";
 import { useEffect } from "react";
-
+import { logout } from "../user/userSlice";
 
 const NavBar = () => {
     const account = useSelector(state => state.user.account);
-    const loginAndRegister = () => {
-        return (
-            <div className="d-flex" >
-                <NavLink to="/login"><button className="btn btn-primary m-2">Login</button></NavLink>
-                <NavLink to="/register"><button className="btn btn-primary m-2">Register</button></NavLink>
-            </div>
-        )
-    }
-
-    const showAccName = () => {
-        return (
-            <div>
-                {account.name}
-            </div>
-
-        )
-    }
-
     const dispatch = useDispatch();
     useEffect(() => () => dispatch(getGenres()));
 
+    const loginAndRegister = () => {
+        return (
+            <div className="d-flex" >
+                <NavLink to="/login"><button className="btn btn-primary m-2" id="loginbtn">Login</button></NavLink>
+                <NavLink to="/register"><button className="btn btn-primary m-2" id="registerbtn">Register</button></NavLink>
+            </div>
+        )
+    }
+    const showAccName = () => {
+        return (
+            <button className="btn btn-primary nav-item dropdown">
+                <li className=" " style={{ "listStyle": "none" }}>
+                    <a className="nav-link dropdown-toggle text-capitalize" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i className="bi bi-person-fill"></i> {account.name}
+                    </a>
+                    <ul className="dropdown-menu">
+                        <li><NavLink to="/profile" style={{ "text-decoration": "none" }}><i className="bi bi-gear"></i> Profil</NavLink></li>
+                        <li><NavLink to="/" onClick={() => dispatch(logout())} style={{ "text-decoration": "none" }}><i className="bi bi-box-arrow-right" ></i> Logout</NavLink></li>
+                    </ul>
+                </li>
+            </button>
+        )
+    }
+
     return (
         <div>
-            <nav className="navbar navbar-expand-lg bg-body-tertiary">
+            <nav className="navbar navbar-expand-sm bg-body-tertiary">
                 <div className="container-fluid">
                     <a className="navbar-brand" href="#"><img src={logo} alt="logo" /></a>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -68,9 +74,12 @@ const NavBar = () => {
 
 
 
+
+
                 </div>
             </nav>
             <Outlet />
+
         </div>
     )
 }

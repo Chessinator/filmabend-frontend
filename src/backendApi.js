@@ -263,15 +263,101 @@ export class Api extends HttpClient {
         ...params,
       }),
     /**
-     * @description get-movie-by-account-Id
+     * @description get-genre-by-account-Id
      *
      * @tags account-property-reference-controller
      * @name FollowPropertyReferenceAccountGet1
-     * @request GET:/accounts/{id}/favorites
+     * @request GET:/accounts/{id}/favoriteGenres
      */
     followPropertyReferenceAccountGet1: (id, params = {}) =>
       this.request({
-        path: `/accounts/${id}/favorites`,
+        path: `/accounts/${id}/favoriteGenres`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+    /**
+     * @description update-genre-by-account-Id
+     *
+     * @tags account-property-reference-controller
+     * @name CreatePropertyReferenceAccountPut
+     * @request PUT:/accounts/{id}/favoriteGenres
+     */
+    createPropertyReferenceAccountPut: (id, data, params = {}) =>
+      this.request({
+        path: `/accounts/${id}/favoriteGenres`,
+        method: "PUT",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+    /**
+     * @description delete-genre-by-account-Id
+     *
+     * @tags account-property-reference-controller
+     * @name DeletePropertyReferenceAccountDelete
+     * @request DELETE:/accounts/{id}/favoriteGenres
+     */
+    deletePropertyReferenceAccountDelete: (id, params = {}) =>
+      this.request({
+        path: `/accounts/${id}/favoriteGenres`,
+        method: "DELETE",
+        ...params,
+      }),
+    /**
+     * @description patch-genre-by-account-Id
+     *
+     * @tags account-property-reference-controller
+     * @name CreatePropertyReferenceAccountPatch
+     * @request PATCH:/accounts/{id}/favoriteGenres
+     */
+    createPropertyReferenceAccountPatch: (id, data, params = {}) =>
+      this.request({
+        path: `/accounts/${id}/favoriteGenres`,
+        method: "PATCH",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+    /**
+     * @description get-genre-by-account-Id
+     *
+     * @tags account-property-reference-controller
+     * @name FollowPropertyReferenceAccountGet
+     * @request GET:/accounts/{id}/favoriteGenres/{propertyId}
+     */
+    followPropertyReferenceAccountGet: (id, propertyId, params = {}) =>
+      this.request({
+        path: `/accounts/${id}/favoriteGenres/${propertyId}`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+    /**
+     * @description delete-genre-by-account-Id
+     *
+     * @tags account-property-reference-controller
+     * @name DeletePropertyReferenceIdAccountDelete
+     * @request DELETE:/accounts/{id}/favoriteGenres/{propertyId}
+     */
+    deletePropertyReferenceIdAccountDelete: (id, propertyId, params = {}) =>
+      this.request({
+        path: `/accounts/${id}/favoriteGenres/${propertyId}`,
+        method: "DELETE",
+        ...params,
+      }),
+    /**
+     * @description get-movie-by-account-Id
+     *
+     * @tags account-property-reference-controller
+     * @name FollowPropertyReferenceAccountGet21
+     * @request GET:/accounts/{id}/favoriteMovies
+     */
+    followPropertyReferenceAccountGet21: (id, params = {}) =>
+      this.request({
+        path: `/accounts/${id}/favoriteMovies`,
         method: "GET",
         format: "json",
         ...params,
@@ -280,12 +366,12 @@ export class Api extends HttpClient {
      * @description update-movie-by-account-Id
      *
      * @tags account-property-reference-controller
-     * @name CreatePropertyReferenceAccountPut
-     * @request PUT:/accounts/{id}/favorites
+     * @name CreatePropertyReferenceAccountPut1
+     * @request PUT:/accounts/{id}/favoriteMovies
      */
-    createPropertyReferenceAccountPut: (id, data, params = {}) =>
+    createPropertyReferenceAccountPut1: (id, data, params = {}) =>
       this.request({
-        path: `/accounts/${id}/favorites`,
+        path: `/accounts/${id}/favoriteMovies`,
         method: "PUT",
         body: data,
         type: ContentType.Json,
@@ -296,12 +382,12 @@ export class Api extends HttpClient {
      * @description delete-movie-by-account-Id
      *
      * @tags account-property-reference-controller
-     * @name DeletePropertyReferenceAccountDelete
-     * @request DELETE:/accounts/{id}/favorites
+     * @name DeletePropertyReferenceAccountDelete1
+     * @request DELETE:/accounts/{id}/favoriteMovies
      */
-    deletePropertyReferenceAccountDelete: (id, params = {}) =>
+    deletePropertyReferenceAccountDelete1: (id, params = {}) =>
       this.request({
-        path: `/accounts/${id}/favorites`,
+        path: `/accounts/${id}/favoriteMovies`,
         method: "DELETE",
         ...params,
       }),
@@ -309,12 +395,12 @@ export class Api extends HttpClient {
      * @description patch-movie-by-account-Id
      *
      * @tags account-property-reference-controller
-     * @name CreatePropertyReferenceAccountPatch
-     * @request PATCH:/accounts/{id}/favorites
+     * @name CreatePropertyReferenceAccountPatch1
+     * @request PATCH:/accounts/{id}/favoriteMovies
      */
-    createPropertyReferenceAccountPatch: (id, data, params = {}) =>
+    createPropertyReferenceAccountPatch1: (id, data, params = {}) =>
       this.request({
-        path: `/accounts/${id}/favorites`,
+        path: `/accounts/${id}/favoriteMovies`,
         method: "PATCH",
         body: data,
         type: ContentType.Json,
@@ -325,12 +411,12 @@ export class Api extends HttpClient {
      * @description get-movie-by-account-Id
      *
      * @tags account-property-reference-controller
-     * @name FollowPropertyReferenceAccountGet
-     * @request GET:/accounts/{id}/favorites/{propertyId}
+     * @name FollowPropertyReferenceAccountGet2
+     * @request GET:/accounts/{id}/favoriteMovies/{propertyId}
      */
-    followPropertyReferenceAccountGet: (id, propertyId, params = {}) =>
+    followPropertyReferenceAccountGet2: (id, propertyId, params = {}) =>
       this.request({
-        path: `/accounts/${id}/favorites/${propertyId}`,
+        path: `/accounts/${id}/favoriteMovies/${propertyId}`,
         method: "GET",
         format: "json",
         ...params,
@@ -339,12 +425,12 @@ export class Api extends HttpClient {
      * @description delete-movie-by-account-Id
      *
      * @tags account-property-reference-controller
-     * @name DeletePropertyReferenceIdAccountDelete
-     * @request DELETE:/accounts/{id}/favorites/{propertyId}
+     * @name DeletePropertyReferenceIdAccountDelete1
+     * @request DELETE:/accounts/{id}/favoriteMovies/{propertyId}
      */
-    deletePropertyReferenceIdAccountDelete: (id, propertyId, params = {}) =>
+    deletePropertyReferenceIdAccountDelete1: (id, propertyId, params = {}) =>
       this.request({
-        path: `/accounts/${id}/favorites/${propertyId}`,
+        path: `/accounts/${id}/favoriteMovies/${propertyId}`,
         method: "DELETE",
         ...params,
       }),
