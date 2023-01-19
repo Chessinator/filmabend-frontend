@@ -8,7 +8,7 @@ import { useEffect } from "react";
 
 
 const NavBar = () => {
-    const account = useSelector(state => state.account);
+    const account = useSelector(state => state.user.account);
     const loginAndRegister = () => {
         return (
             <div className="d-flex" >
@@ -63,7 +63,7 @@ const NavBar = () => {
                             </li>
                         </ul>
                     </div>
-                    {account != {} ? loginAndRegister() : showAccName()}
+                    {!account ? loginAndRegister() : showAccName()}
 
 
 
