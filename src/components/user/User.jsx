@@ -40,22 +40,22 @@ const User = () => {
                 <div className="card" style={{ "width": "18rem" }}>
                     <div className="fw-bolder m-3">Lieblingsgenres</div>
                     <div className="card-body">
-                        {account.favoriteGenres?.map((genre, i) =>
+                        <div className="d-flex mt-3">
+                            <div className="input-group mb-3">
+                                <select className="form-select" id="inputGroupSelect01" onChange={e => setGenre({ id: e.target.value })}>
+                                    {genres?.map((g, key) => <option key={key} value={g.id} >{g.name}</option>)}
+                                </select>
+                                <button className="btn btn-outline-secondary" type="button" onClick={() => dispatch(addFavGenreAsync({ id: account.id, genre: genre }))}  >hinzufügen</button>
+                            </div>
+                        </div>
+                        {account.favoriteGenres.map((genre, i) =>
                             <div key={i}>
                                 <div className="card-text d-flex row">
                                     <div className="col-9">{genre.name}</div>
                                     <i className="bi bi-trash3 col-2" onClick={() => { }}></i>
                                 </div>
-                            </div>)}
-
-                        <div className="d-flex mt-3">
-                            <div className="input-group mb-3">
-                                <select className="form-select" id="inputGroupSelect01" onChange={e => setGenre({id: e.target.value})}> 
-                                    {genres?.map((g, key) => <option key={key} value={g.id} >{g.name}</option>)}
-                                </select>
-                                <button className="btn btn-outline-secondary" type="button" onClick={() => dispatch(addFavGenreAsync(account.id, genre))}  >hinzufügen</button>
-                            </div>
-                        </div>
+                            </div>)
+                        }
                     </div>
                 </div>
             </div>

@@ -34,7 +34,7 @@ const userSlice = createSlice({
       })
       .addCase(addFavGenreAsync.fulfilled, (state, action) => {
         state.status = 'idle';
-        state.account.favoriteGenres = action.payload;
+        state.account.favoriteGenres = action.payload.favoriteGenres;
       })
       ;
   },
@@ -59,10 +59,10 @@ export const registerAsync = createAsyncThunk(
 )
 export const addFavGenreAsync = createAsyncThunk(
   "user/genre",
-  async (id, genreId) => {
-    console.log(genreId)
-    
-    const response = await api.accounts.addFavGenre(id, {id:genreId});
+  async (request) => {
+    console.log(request)
+
+    const response = await api.accounts.addFavGenre(request.id, request.genre);
     return response.data;
   }
 )
