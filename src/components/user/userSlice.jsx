@@ -1,7 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { useNavigate } from "react-router";
 import { Api } from "../../backendApi";
-
 const api = new Api();
 const initialState = {
   account: false,
@@ -30,7 +28,15 @@ const userSlice = createSlice({
       })
       .addCase(registerAsync.fulfilled, (state, action) => {
         state.status = 'idle';
-      });
+      })
+      .addCase(addFavGenreAsync.pending, (state, action) => {
+        state.status = 'loading';
+      })
+      .addCase(addFavGenreAsync.fulfilled, (state, action) => {
+        state.status = 'idle';
+        state.account.favoriteGenres = action.payload;
+      })
+      ;
   },
 })
 
@@ -48,6 +54,15 @@ export const registerAsync = createAsyncThunk(
   async (registerData) => {
     console.log(registerData);
     const response = await api.accounts.postCollectionResourceAccountPost(registerData)
+    return response.data;
+  }
+)
+export const addFavGenreAsync = createAsyncThunk(
+  "user/genre",
+  async (id, genreId) => {
+    console.log(genreId)
+    
+    const response = await api.accounts.addFavGenre(id, {id:genreId});
     return response.data;
   }
 )

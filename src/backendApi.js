@@ -434,6 +434,22 @@ export class Api extends HttpClient {
         method: "DELETE",
         ...params,
       }),
+    /**
+     * No description
+     *
+     * @tags account-controller
+     * @name AddFavGenre
+     * @request POST:/accounts/{accountId}/favGenres
+     */
+    addFavGenre: (accountId, data, params = {}) =>
+      this.request({
+        path: `/accounts/${accountId}/favGenres`,
+        method: "POST",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
   };
   genres = {
     /**

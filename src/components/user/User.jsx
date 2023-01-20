@@ -1,21 +1,23 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
-import { useEffect } from 'react';
+import { addFavGenreAsync } from "./userSlice";
 
 const User = () => {
 
     const account = useSelector(state => state.user.account);
     const genres = useSelector(state => state.genre.genres)
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     useEffect(() => () => {
         if (!account) {
             navigate("/login");
         }
     })
-
     const [movie, setMovie] = useState();
-    const [genre, setGenre] = useState();
+    const [genre, setGenre] = useState(
+
+    );
 
     return (
         <div className="container-fluid d-flex justify-content-evenly">
@@ -31,8 +33,6 @@ const User = () => {
                             <div className="card-text fw-bolder">Wohnort:</div>
                             <div className="card-tex text-capitalize">{account.city}</div>
                         </div>
-
-
                     </div>
                 </div>
             </div>
@@ -40,8 +40,8 @@ const User = () => {
                 <div className="card" style={{ "width": "18rem" }}>
                     <div className="fw-bolder m-3">Lieblingsgenres</div>
                     <div className="card-body">
-                        {account.favoriteGenres?.map(genre =>
-                            <div>
+                        {account.favoriteGenres?.map((genre, i) =>
+                            <div key={i}>
                                 <div className="card-text d-flex row">
                                     <div className="col-9">{genre.name}</div>
                                     <i className="bi bi-trash3 col-2" onClick={() => { }}></i>
@@ -49,22 +49,22 @@ const User = () => {
                             </div>)}
 
                         <div className="d-flex mt-3">
-                            <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Genre suchen" />
-                            <datalist id="datalistOptions" >
-                                {genres?.map(genre => <option value={genre.name} />)}
-                            </datalist>
-                            <button className="btn btn-primary">hinzufügen</button>
+                            <div className="input-group mb-3">
+                                <select className="form-select" id="inputGroupSelect01" onChange={e => setGenre({id: e.target.value})}> 
+                                    {genres?.map((g, key) => <option key={key} value={g.id} >{g.name}</option>)}
+                                </select>
+                                <button className="btn btn-outline-secondary" type="button" onClick={() => dispatch(addFavGenreAsync(account.id, genre))}  >hinzufügen</button>
+                            </div>
                         </div>
-
-
                     </div>
                 </div>
             </div>
+
             <div className="">
                 <div className="card" style={{ "width": "18rem" }}>
                     <div className="fw-bolder m-3">Lieblingsfilme</div>
                     <div className="card-body">
-                        {account.favoriteMovies?.map(genre => <div className="card-tex ">{genre.name}</div>)}
+                        {account.favoriteMovies?.map((g, i) => <div className="card-tex" key={i}>{g.name}</div>)}
                         <div className="d-flex">
                             <input className="form-control" type="text" placeholder="Film suchen" aria-label="default input example" onChange={(e) => setMovie(e.target.value)} />
                             <button className="btn btn-primary">suchen</button>

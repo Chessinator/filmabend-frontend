@@ -36,16 +36,6 @@ export interface Genre {
   id?: number;
   name?: string;
 }
-export interface EntityModelGenre {
-  name?: string;
-  _links?: Links;
-}
-export interface CollectionModelEntityModelGenre {
-  _embedded?: {
-    genres?: EntityModelGenre[];
-  };
-  _links?: Links;
-}
 export interface Movie {
   /** @format int64 */
   id?: number;
@@ -56,20 +46,22 @@ export interface Movie {
   title?: string;
 }
 export interface EntityModelMovie {
+  /** @format int64 */
+  id?: number;
   imdb_id?: string;
   original_title?: string;
   title?: string;
   _links?: Links;
 }
-export interface CollectionModelGenre {
-  _embedded?: {
-    genres?: GenreResponse[];
-  };
-  _links?: Links;
-}
 export interface CollectionModelObject {
   _embedded?: {
     objects?: object[];
+  };
+  _links?: Links;
+}
+export interface CollectionModelGenre {
+  _embedded?: {
+    genres?: GenreResponse[];
   };
   _links?: Links;
 }
@@ -85,6 +77,8 @@ export interface Account {
   city?: string;
 }
 export interface EntityModelAccount {
+  /** @format int64 */
+  id?: number;
   name?: string;
   passwordHash?: string;
   city?: string;
@@ -99,6 +93,18 @@ export interface CollectionModelEntityModelAccount {
 export interface CollectionModelMovie {
   _embedded?: {
     movies?: MovieResponse[];
+  };
+  _links?: Links;
+}
+export interface EntityModelGenre {
+  /** @format int32 */
+  id?: number;
+  name?: string;
+  _links?: Links;
+}
+export interface CollectionModelEntityModelGenre {
+  _embedded?: {
+    genres?: EntityModelGenre[];
   };
   _links?: Links;
 }
@@ -125,9 +131,13 @@ export interface MovieRequestBody {
   title?: string;
 }
 export interface GenreResponse {
+  /** @format int32 */
+  id?: number;
   name?: string;
 }
 export interface MovieResponse {
+  /** @format int64 */
+  id?: number;
   imdb_id?: string;
   original_title?: string;
   title?: string;
@@ -429,6 +439,14 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
       propertyId: string,
       params?: RequestParams,
     ) => Promise<HttpResponse<void, void>>;
+    /**
+     * No description
+     *
+     * @tags account-controller
+     * @name AddFavGenre
+     * @request POST:/accounts/{accountId}/favGenres
+     */
+    addFavGenre: (accountId: number, data: Genre, params?: RequestParams) => Promise<HttpResponse<Account, any>>;
   };
   genres: {
     /**

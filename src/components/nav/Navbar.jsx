@@ -28,8 +28,8 @@ const NavBar = () => {
                         <i className="bi bi-person-fill"></i> {account.name}
                     </a>
                     <ul className="dropdown-menu">
-                        <li><NavLink to="/profile" style={{ "text-decoration": "none" }}><i className="bi bi-gear"></i> Profil</NavLink></li>
-                        <li><NavLink to="/" onClick={() => dispatch(logout())} style={{ "text-decoration": "none" }}><i className="bi bi-box-arrow-right" ></i> Logout</NavLink></li>
+                        <li><NavLink to="/profile" className="text-decoration-none"><i className="bi bi-gear"></i> Profil</NavLink></li>
+                        <li><NavLink to="/" className="text-decoration-none" onClick={() => dispatch(logout())} ><i className="bi bi-box-arrow-right" ></i> Logout</NavLink></li>
                     </ul>
                 </li>
             </button>

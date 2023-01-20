@@ -3,8 +3,6 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { handleTextInput } from "../../util/util";
 import { useNavigate } from "react-router";
-import { Navigate } from "react-router";
-import { useSelector } from "react-redux";
 
 const Login = () => {
 
@@ -12,7 +10,6 @@ const Login = () => {
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
     const navigate = useNavigate();
-    const currentAcc = useSelector(state => state.user.account)
 
     const loginUser = async () => {
         let passHash = await handleTextInput(password);
