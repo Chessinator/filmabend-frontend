@@ -2,7 +2,8 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { Api } from "../../backendApi";
 const api = new Api();
 const initialState = {
-  account: false,
+  account: JSON.parse(sessionStorage.getItem("account")) || false,
+  guestlist: [],
   status: "idle",
 }
 
@@ -12,6 +13,7 @@ const userSlice = createSlice({
   reducers: {
     logout: (state) => {
       state.account = false;
+      sessionStorage.setItem("account", false);
     },
   },
   extraReducers: (builder) => {
@@ -22,6 +24,7 @@ const userSlice = createSlice({
       .addCase(loginAsync.fulfilled, (state, action) => {
         state.status = 'idle';
         state.account = action.payload;
+        sessionStorage.setItem("account", JSON.stringify(action.payload));
       })
       .addCase(registerAsync.pending, (state) => {
         state.status = 'loading';
@@ -34,17 +37,34 @@ const userSlice = createSlice({
       })
       .addCase(addFavGenreAsync.fulfilled, (state, action) => {
         state.status = 'idle';
-        state.account.favoriteGenres = action.payload.favoriteGenres;
+        state.account.favoriteGenres = action.payload.favoriteGenres.sort((a,b) => a.name < b.name ? -1 : 1);
+        sessionStorage.setItem("account", JSON.stringify(state.account));
       })
-      ;
+      .addCase(deleteFavGenreAsync.fulfilled, (state, action) =>  {
+        state.status = 'idle';
+        state.account.favoriteGenres = state.account.favoriteGenres.filter(genre => genre.id !== action.payload);
+        sessionStorage.setItem("account", JSON.stringify(state.account));
+      })
+      .addCase(findUserAsync.fulfilled, (state, action) => {
+          state.status = "idle"; 
+          state.guestlist =  [...state.guestlist, action.payload];
+      });
   },
 })
 
 export const loginAsync = createAsyncThunk(
   "user/login",
   async (loginData) => {
-    console.log(loginData);
     const response = await api.login.userLogin(loginData);
+    return response.data;
+  }
+)
+
+export const findUserAsync = createAsyncThunk(
+  "user/findUser",
+  async(username) => {
+    console.log(username)
+    const response = await api.accounts.executeSearchAccountGet({name: username});
     return response.data;
   }
 )
@@ -58,14 +78,22 @@ export const registerAsync = createAsyncThunk(
   }
 )
 export const addFavGenreAsync = createAsyncThunk(
-  "user/genre",
+  "user/genre/add",
   async (request) => {
-    console.log(request)
-
     const response = await api.accounts.addFavGenre(request.id, request.genre);
     return response.data;
   }
 )
+export const deleteFavGenreAsync = createAsyncThunk(
+  "user/genre/delete",
+  async (request) => {
+    await api.accounts.deletePropertyReferenceIdAccountDelete(request.id, request.propertyId);
+    return request.propertyId;
+  }
+)
+
+
+
 
 export const { login, logout } = userSlice.actions;
 

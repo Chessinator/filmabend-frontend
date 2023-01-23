@@ -56,7 +56,7 @@ const NavBar = () => {
                                 <a className="nav-link" href="#">Freunde</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">Filmabend planen</a>
+                                <a className="nav-link" href="/movienight">Filmabend planen</a>
                             </li>
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

@@ -10,6 +10,7 @@ import { store } from './redux/store';
 import NavBar from './components/nav/Navbar';
 import Startpage from './components/Startpage'
 import User from './components/user/User';
+import Eventplanning from './components/event/Eventplanning';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
         path: "/profile",
         element: <User />
       },
+      {
+        path: "/movienight",
+        element: <Eventplanning />
+      }
       ]
   }]
 );

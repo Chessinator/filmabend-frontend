@@ -25,7 +25,7 @@ const genreSlice = createSlice({
             })
             .addCase(getGenres.fulfilled, (state, action) => {
                 state.status = 'idle';
-                state.genres = action.payload._embedded.genres;
+                state.genres = action.payload._embedded.genres.sort((a,b) => a.name < b.name ? -1 : 1);
             });
     },
 })
