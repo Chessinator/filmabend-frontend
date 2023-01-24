@@ -4,6 +4,7 @@ const api = new Api();
 const initialState = {
   account: JSON.parse(sessionStorage.getItem("account")) || false,
   guestlist: [],
+  userList:["nico","chris","peter","nadja","charles","pascal","pedro"],
   status: "idle",
 }
 
@@ -48,7 +49,15 @@ const userSlice = createSlice({
       .addCase(findUserAsync.fulfilled, (state, action) => {
           state.status = "idle"; 
           state.guestlist =  [...state.guestlist, action.payload];
-      });
+      })
+      .addCase(getAllUsersAsync.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(getAllUsersAsync.fulfilled, (state, action) => {
+        state.status = 'idle';
+        state.userList = action.payload;
+      })
+      ;
   },
 })
 
@@ -59,16 +68,21 @@ export const loginAsync = createAsyncThunk(
     return response.data;
   }
 )
-
 export const findUserAsync = createAsyncThunk(
   "user/findUser",
   async(username) => {
-    console.log(username)
     const response = await api.accounts.executeSearchAccountGet({name: username});
     return response.data;
   }
 )
+export const getAllUsersAsync = createAsyncThunk(
+  "user/getAllUsernames",
+  async() => {
+    let response = await api.usernames.getAllUsernames();
+    return response.data;
+  }
 
+)
 export const registerAsync = createAsyncThunk(
   "user/register",
   async (registerData) => {
@@ -91,9 +105,6 @@ export const deleteFavGenreAsync = createAsyncThunk(
     return request.propertyId;
   }
 )
-
-
-
 
 export const { login, logout } = userSlice.actions;
 

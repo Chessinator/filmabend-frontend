@@ -451,6 +451,527 @@ export class Api extends HttpClient {
         ...params,
       }),
   };
+  eventPlans = {
+    /**
+     * @description get-eventplan
+     *
+     * @tags event-plan-entity-controller
+     * @name GetCollectionResourceEventplanGet1
+     * @request GET:/eventPlans
+     */
+    getCollectionResourceEventplanGet1: (params = {}) =>
+      this.request({
+        path: `/eventPlans`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+    /**
+     * @description create-eventplan
+     *
+     * @tags event-plan-entity-controller
+     * @name PostCollectionResourceEventplanPost
+     * @request POST:/eventPlans
+     */
+    postCollectionResourceEventplanPost: (data, params = {}) =>
+      this.request({
+        path: `/eventPlans`,
+        method: "POST",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+    /**
+     * @description get-eventplan
+     *
+     * @tags event-plan-entity-controller
+     * @name GetItemResourceEventplanGet
+     * @request GET:/eventPlans/{id}
+     */
+    getItemResourceEventplanGet: (id, params = {}) =>
+      this.request({
+        path: `/eventPlans/${id}`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+    /**
+     * @description update-eventplan
+     *
+     * @tags event-plan-entity-controller
+     * @name PutItemResourceEventplanPut
+     * @request PUT:/eventPlans/{id}
+     */
+    putItemResourceEventplanPut: (id, data, params = {}) =>
+      this.request({
+        path: `/eventPlans/${id}`,
+        method: "PUT",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+    /**
+     * @description delete-eventplan
+     *
+     * @tags event-plan-entity-controller
+     * @name DeleteItemResourceEventplanDelete
+     * @request DELETE:/eventPlans/{id}
+     */
+    deleteItemResourceEventplanDelete: (id, params = {}) =>
+      this.request({
+        path: `/eventPlans/${id}`,
+        method: "DELETE",
+        ...params,
+      }),
+    /**
+     * @description patch-eventplan
+     *
+     * @tags event-plan-entity-controller
+     * @name PatchItemResourceEventplanPatch
+     * @request PATCH:/eventPlans/{id}
+     */
+    patchItemResourceEventplanPatch: (id, data, params = {}) =>
+      this.request({
+        path: `/eventPlans/${id}`,
+        method: "PATCH",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+    /**
+     * @description get-account-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name FollowPropertyReferenceEventplanGet1
+     * @request GET:/eventPlans/{id}/confirmedUsers
+     */
+    followPropertyReferenceEventplanGet1: (id, params = {}) =>
+      this.request({
+        path: `/eventPlans/${id}/confirmedUsers`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+    /**
+     * @description update-account-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name CreatePropertyReferenceEventplanPut
+     * @request PUT:/eventPlans/{id}/confirmedUsers
+     */
+    createPropertyReferenceEventplanPut: (id, data, params = {}) =>
+      this.request({
+        path: `/eventPlans/${id}/confirmedUsers`,
+        method: "PUT",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+    /**
+     * @description delete-account-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name DeletePropertyReferenceEventplanDelete
+     * @request DELETE:/eventPlans/{id}/confirmedUsers
+     */
+    deletePropertyReferenceEventplanDelete: (id, params = {}) =>
+      this.request({
+        path: `/eventPlans/${id}/confirmedUsers`,
+        method: "DELETE",
+        ...params,
+      }),
+    /**
+     * @description patch-account-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name CreatePropertyReferenceEventplanPatch
+     * @request PATCH:/eventPlans/{id}/confirmedUsers
+     */
+    createPropertyReferenceEventplanPatch: (id, data, params = {}) =>
+      this.request({
+        path: `/eventPlans/${id}/confirmedUsers`,
+        method: "PATCH",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+    /**
+     * @description get-account-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name FollowPropertyReferenceEventplanGet
+     * @request GET:/eventPlans/{id}/confirmedUsers/{propertyId}
+     */
+    followPropertyReferenceEventplanGet: (id, propertyId, params = {}) =>
+      this.request({
+        path: `/eventPlans/${id}/confirmedUsers/${propertyId}`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+    /**
+     * @description delete-account-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name DeletePropertyReferenceIdEventplanDelete
+     * @request DELETE:/eventPlans/{id}/confirmedUsers/{propertyId}
+     */
+    deletePropertyReferenceIdEventplanDelete: (id, propertyId, params = {}) =>
+      this.request({
+        path: `/eventPlans/${id}/confirmedUsers/${propertyId}`,
+        method: "DELETE",
+        ...params,
+      }),
+    /**
+     * @description get-account-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name FollowPropertyReferenceEventplanGet21
+     * @request GET:/eventPlans/{id}/host
+     */
+    followPropertyReferenceEventplanGet21: (id, params = {}) =>
+      this.request({
+        path: `/eventPlans/${id}/host`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+    /**
+     * @description update-account-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name CreatePropertyReferenceEventplanPut1
+     * @request PUT:/eventPlans/{id}/host
+     */
+    createPropertyReferenceEventplanPut1: (id, data, params = {}) =>
+      this.request({
+        path: `/eventPlans/${id}/host`,
+        method: "PUT",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+    /**
+     * @description delete-account-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name DeletePropertyReferenceEventplanDelete1
+     * @request DELETE:/eventPlans/{id}/host
+     */
+    deletePropertyReferenceEventplanDelete1: (id, params = {}) =>
+      this.request({
+        path: `/eventPlans/${id}/host`,
+        method: "DELETE",
+        ...params,
+      }),
+    /**
+     * @description patch-account-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name CreatePropertyReferenceEventplanPatch1
+     * @request PATCH:/eventPlans/{id}/host
+     */
+    createPropertyReferenceEventplanPatch1: (id, data, params = {}) =>
+      this.request({
+        path: `/eventPlans/${id}/host`,
+        method: "PATCH",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+    /**
+     * @description get-account-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name FollowPropertyReferenceEventplanGet2
+     * @request GET:/eventPlans/{id}/host/{propertyId}
+     */
+    followPropertyReferenceEventplanGet2: (id, propertyId, params = {}) =>
+      this.request({
+        path: `/eventPlans/${id}/host/${propertyId}`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+    /**
+     * @description delete-account-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name DeletePropertyReferenceIdEventplanDelete1
+     * @request DELETE:/eventPlans/{id}/host/{propertyId}
+     */
+    deletePropertyReferenceIdEventplanDelete1: (id, propertyId, params = {}) =>
+      this.request({
+        path: `/eventPlans/${id}/host/${propertyId}`,
+        method: "DELETE",
+        ...params,
+      }),
+    /**
+     * @description get-account-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name FollowPropertyReferenceEventplanGet31
+     * @request GET:/eventPlans/{id}/invitedUsers
+     */
+    followPropertyReferenceEventplanGet31: (id, params = {}) =>
+      this.request({
+        path: `/eventPlans/${id}/invitedUsers`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+    /**
+     * @description update-account-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name CreatePropertyReferenceEventplanPut2
+     * @request PUT:/eventPlans/{id}/invitedUsers
+     */
+    createPropertyReferenceEventplanPut2: (id, data, params = {}) =>
+      this.request({
+        path: `/eventPlans/${id}/invitedUsers`,
+        method: "PUT",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+    /**
+     * @description delete-account-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name DeletePropertyReferenceEventplanDelete2
+     * @request DELETE:/eventPlans/{id}/invitedUsers
+     */
+    deletePropertyReferenceEventplanDelete2: (id, params = {}) =>
+      this.request({
+        path: `/eventPlans/${id}/invitedUsers`,
+        method: "DELETE",
+        ...params,
+      }),
+    /**
+     * @description patch-account-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name CreatePropertyReferenceEventplanPatch2
+     * @request PATCH:/eventPlans/{id}/invitedUsers
+     */
+    createPropertyReferenceEventplanPatch2: (id, data, params = {}) =>
+      this.request({
+        path: `/eventPlans/${id}/invitedUsers`,
+        method: "PATCH",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+    /**
+     * @description get-account-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name FollowPropertyReferenceEventplanGet3
+     * @request GET:/eventPlans/{id}/invitedUsers/{propertyId}
+     */
+    followPropertyReferenceEventplanGet3: (id, propertyId, params = {}) =>
+      this.request({
+        path: `/eventPlans/${id}/invitedUsers/${propertyId}`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+    /**
+     * @description delete-account-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name DeletePropertyReferenceIdEventplanDelete2
+     * @request DELETE:/eventPlans/{id}/invitedUsers/{propertyId}
+     */
+    deletePropertyReferenceIdEventplanDelete2: (id, propertyId, params = {}) =>
+      this.request({
+        path: `/eventPlans/${id}/invitedUsers/${propertyId}`,
+        method: "DELETE",
+        ...params,
+      }),
+    /**
+     * @description get-genre-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name FollowPropertyReferenceEventplanGet41
+     * @request GET:/eventPlans/{id}/selectedGenres
+     */
+    followPropertyReferenceEventplanGet41: (id, params = {}) =>
+      this.request({
+        path: `/eventPlans/${id}/selectedGenres`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+    /**
+     * @description update-genre-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name CreatePropertyReferenceEventplanPut3
+     * @request PUT:/eventPlans/{id}/selectedGenres
+     */
+    createPropertyReferenceEventplanPut3: (id, data, params = {}) =>
+      this.request({
+        path: `/eventPlans/${id}/selectedGenres`,
+        method: "PUT",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+    /**
+     * @description delete-genre-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name DeletePropertyReferenceEventplanDelete3
+     * @request DELETE:/eventPlans/{id}/selectedGenres
+     */
+    deletePropertyReferenceEventplanDelete3: (id, params = {}) =>
+      this.request({
+        path: `/eventPlans/${id}/selectedGenres`,
+        method: "DELETE",
+        ...params,
+      }),
+    /**
+     * @description patch-genre-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name CreatePropertyReferenceEventplanPatch3
+     * @request PATCH:/eventPlans/{id}/selectedGenres
+     */
+    createPropertyReferenceEventplanPatch3: (id, data, params = {}) =>
+      this.request({
+        path: `/eventPlans/${id}/selectedGenres`,
+        method: "PATCH",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+    /**
+     * @description get-genre-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name FollowPropertyReferenceEventplanGet4
+     * @request GET:/eventPlans/{id}/selectedGenres/{propertyId}
+     */
+    followPropertyReferenceEventplanGet4: (id, propertyId, params = {}) =>
+      this.request({
+        path: `/eventPlans/${id}/selectedGenres/${propertyId}`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+    /**
+     * @description delete-genre-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name DeletePropertyReferenceIdEventplanDelete3
+     * @request DELETE:/eventPlans/{id}/selectedGenres/{propertyId}
+     */
+    deletePropertyReferenceIdEventplanDelete3: (id, propertyId, params = {}) =>
+      this.request({
+        path: `/eventPlans/${id}/selectedGenres/${propertyId}`,
+        method: "DELETE",
+        ...params,
+      }),
+    /**
+     * @description get-movie-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name FollowPropertyReferenceEventplanGet51
+     * @request GET:/eventPlans/{id}/selectedMovies
+     */
+    followPropertyReferenceEventplanGet51: (id, params = {}) =>
+      this.request({
+        path: `/eventPlans/${id}/selectedMovies`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+    /**
+     * @description update-movie-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name CreatePropertyReferenceEventplanPut4
+     * @request PUT:/eventPlans/{id}/selectedMovies
+     */
+    createPropertyReferenceEventplanPut4: (id, data, params = {}) =>
+      this.request({
+        path: `/eventPlans/${id}/selectedMovies`,
+        method: "PUT",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+    /**
+     * @description delete-movie-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name DeletePropertyReferenceEventplanDelete4
+     * @request DELETE:/eventPlans/{id}/selectedMovies
+     */
+    deletePropertyReferenceEventplanDelete4: (id, params = {}) =>
+      this.request({
+        path: `/eventPlans/${id}/selectedMovies`,
+        method: "DELETE",
+        ...params,
+      }),
+    /**
+     * @description patch-movie-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name CreatePropertyReferenceEventplanPatch4
+     * @request PATCH:/eventPlans/{id}/selectedMovies
+     */
+    createPropertyReferenceEventplanPatch4: (id, data, params = {}) =>
+      this.request({
+        path: `/eventPlans/${id}/selectedMovies`,
+        method: "PATCH",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+    /**
+     * @description get-movie-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name FollowPropertyReferenceEventplanGet5
+     * @request GET:/eventPlans/{id}/selectedMovies/{propertyId}
+     */
+    followPropertyReferenceEventplanGet5: (id, propertyId, params = {}) =>
+      this.request({
+        path: `/eventPlans/${id}/selectedMovies/${propertyId}`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+    /**
+     * @description delete-movie-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name DeletePropertyReferenceIdEventplanDelete4
+     * @request DELETE:/eventPlans/{id}/selectedMovies/{propertyId}
+     */
+    deletePropertyReferenceIdEventplanDelete4: (id, propertyId, params = {}) =>
+      this.request({
+        path: `/eventPlans/${id}/selectedMovies/${propertyId}`,
+        method: "DELETE",
+        ...params,
+      }),
+  };
   genres = {
     /**
      * @description get-genre
@@ -767,9 +1288,23 @@ export class Api extends HttpClient {
      *
      * @tags profile-controller
      * @name Descriptor112
-     * @request GET:/profile/genres
+     * @request GET:/profile/eventPlans
      */
     descriptor112: (params = {}) =>
+      this.request({
+        path: `/profile/eventPlans`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+    /**
+     * No description
+     *
+     * @tags profile-controller
+     * @name Descriptor113
+     * @request GET:/profile/genres
+     */
+    descriptor113: (params = {}) =>
       this.request({
         path: `/profile/genres`,
         method: "GET",
@@ -805,6 +1340,22 @@ export class Api extends HttpClient {
         method: "POST",
         body: data,
         type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+  };
+  usernames = {
+    /**
+     * No description
+     *
+     * @tags account-controller
+     * @name GetAllUsernames
+     * @request GET:/usernames
+     */
+    getAllUsernames: (params = {}) =>
+      this.request({
+        path: `/usernames`,
+        method: "GET",
         format: "json",
         ...params,
       }),

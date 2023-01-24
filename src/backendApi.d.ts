@@ -31,6 +31,17 @@ export declare type Links = Record<string, Link>;
 export interface RepresentationModelObject {
   _links?: Links;
 }
+export interface Account {
+  /** @format int64 */
+  id?: number;
+  name?: string;
+  /** @uniqueItems true */
+  favoriteMovies?: Movie[];
+  /** @uniqueItems true */
+  favoriteGenres?: Genre[];
+  passwordHash?: string;
+  city?: string;
+}
 export interface Genre {
   /** @format int32 */
   id?: number;
@@ -45,36 +56,20 @@ export interface Movie {
   original_title?: string;
   title?: string;
 }
-export interface EntityModelMovie {
-  /** @format int64 */
-  id?: number;
-  imdb_id?: string;
-  original_title?: string;
-  title?: string;
-  _links?: Links;
-}
-export interface CollectionModelObject {
-  _embedded?: {
-    objects?: object[];
-  };
-  _links?: Links;
-}
-export interface CollectionModelGenre {
-  _embedded?: {
-    genres?: GenreResponse[];
-  };
-  _links?: Links;
-}
-export interface Account {
+export interface EntityModelEventPlan {
   /** @format int64 */
   id?: number;
   name?: string;
-  /** @uniqueItems true */
-  favoriteMovies?: Movie[];
-  /** @uniqueItems true */
-  favoriteGenres?: Genre[];
-  passwordHash?: string;
-  city?: string;
+  /** @format date-time */
+  date?: string;
+  remote?: boolean;
+  _links?: Links;
+}
+export interface CollectionModelEntityModelEventPlan {
+  _embedded?: {
+    eventPlans?: EntityModelEventPlan[];
+  };
+  _links?: Links;
 }
 export interface EntityModelAccount {
   /** @format int64 */
@@ -84,9 +79,9 @@ export interface EntityModelAccount {
   city?: string;
   _links?: Links;
 }
-export interface CollectionModelEntityModelAccount {
+export interface CollectionModelObject {
   _embedded?: {
-    accounts?: EntityModelAccount[];
+    objects?: object[];
   };
   _links?: Links;
 }
@@ -94,6 +89,32 @@ export interface CollectionModelMovie {
   _embedded?: {
     movies?: MovieResponse[];
   };
+  _links?: Links;
+}
+export interface CollectionModelAccount {
+  _embedded?: {
+    accounts?: AccountResponse[];
+  };
+  _links?: Links;
+}
+export interface CollectionModelGenre {
+  _embedded?: {
+    genres?: GenreResponse[];
+  };
+  _links?: Links;
+}
+export interface CollectionModelEntityModelAccount {
+  _embedded?: {
+    accounts?: EntityModelAccount[];
+  };
+  _links?: Links;
+}
+export interface EntityModelMovie {
+  /** @format int64 */
+  id?: number;
+  imdb_id?: string;
+  original_title?: string;
+  title?: string;
   _links?: Links;
 }
 export interface EntityModelGenre {
@@ -138,9 +159,31 @@ export interface GenreResponse {
 export interface MovieResponse {
   /** @format int64 */
   id?: number;
+  /** @uniqueItems true */
+  genre?: Genre[];
   imdb_id?: string;
   original_title?: string;
   title?: string;
+}
+export interface EventPlanRequestBody {
+  /** @format int64 */
+  id?: number;
+  name?: string;
+  /** @format date-time */
+  date?: string;
+  host?: string;
+  selectedMovies?: string[];
+  selectedGenres?: string[];
+  invitedUsers?: string[];
+  confirmedUsers?: string[];
+  remote?: boolean;
+}
+export interface AccountResponse {
+  /** @format int64 */
+  id?: number;
+  name?: string;
+  passwordHash?: string;
+  city?: string;
 }
 export interface LoginData {
   name?: string;
@@ -448,6 +491,407 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      */
     addFavGenre: (accountId: number, data: Genre, params?: RequestParams) => Promise<HttpResponse<Account, any>>;
   };
+  eventPlans: {
+    /**
+     * @description get-eventplan
+     *
+     * @tags event-plan-entity-controller
+     * @name GetCollectionResourceEventplanGet1
+     * @request GET:/eventPlans
+     */
+    getCollectionResourceEventplanGet1: (
+      params?: RequestParams,
+    ) => Promise<HttpResponse<CollectionModelEntityModelEventPlan, any>>;
+    /**
+     * @description create-eventplan
+     *
+     * @tags event-plan-entity-controller
+     * @name PostCollectionResourceEventplanPost
+     * @request POST:/eventPlans
+     */
+    postCollectionResourceEventplanPost: (
+      data: EventPlanRequestBody,
+      params?: RequestParams,
+    ) => Promise<HttpResponse<EntityModelEventPlan, any>>;
+    /**
+     * @description get-eventplan
+     *
+     * @tags event-plan-entity-controller
+     * @name GetItemResourceEventplanGet
+     * @request GET:/eventPlans/{id}
+     */
+    getItemResourceEventplanGet: (
+      id: string,
+      params?: RequestParams,
+    ) => Promise<HttpResponse<EntityModelEventPlan, void>>;
+    /**
+     * @description update-eventplan
+     *
+     * @tags event-plan-entity-controller
+     * @name PutItemResourceEventplanPut
+     * @request PUT:/eventPlans/{id}
+     */
+    putItemResourceEventplanPut: (
+      id: string,
+      data: EventPlanRequestBody,
+      params?: RequestParams,
+    ) => Promise<HttpResponse<EntityModelEventPlan, any>>;
+    /**
+     * @description delete-eventplan
+     *
+     * @tags event-plan-entity-controller
+     * @name DeleteItemResourceEventplanDelete
+     * @request DELETE:/eventPlans/{id}
+     */
+    deleteItemResourceEventplanDelete: (id: string, params?: RequestParams) => Promise<HttpResponse<void, void>>;
+    /**
+     * @description patch-eventplan
+     *
+     * @tags event-plan-entity-controller
+     * @name PatchItemResourceEventplanPatch
+     * @request PATCH:/eventPlans/{id}
+     */
+    patchItemResourceEventplanPatch: (
+      id: string,
+      data: EventPlanRequestBody,
+      params?: RequestParams,
+    ) => Promise<HttpResponse<EntityModelEventPlan, any>>;
+    /**
+     * @description get-account-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name FollowPropertyReferenceEventplanGet1
+     * @request GET:/eventPlans/{id}/confirmedUsers
+     */
+    followPropertyReferenceEventplanGet1: (
+      id: string,
+      params?: RequestParams,
+    ) => Promise<HttpResponse<CollectionModelAccount, void>>;
+    /**
+     * @description update-account-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name CreatePropertyReferenceEventplanPut
+     * @request PUT:/eventPlans/{id}/confirmedUsers
+     */
+    createPropertyReferenceEventplanPut: (
+      id: string,
+      data: CollectionModelObject,
+      params?: RequestParams,
+    ) => Promise<HttpResponse<CollectionModelAccount, any>>;
+    /**
+     * @description delete-account-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name DeletePropertyReferenceEventplanDelete
+     * @request DELETE:/eventPlans/{id}/confirmedUsers
+     */
+    deletePropertyReferenceEventplanDelete: (id: string, params?: RequestParams) => Promise<HttpResponse<void, void>>;
+    /**
+     * @description patch-account-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name CreatePropertyReferenceEventplanPatch
+     * @request PATCH:/eventPlans/{id}/confirmedUsers
+     */
+    createPropertyReferenceEventplanPatch: (
+      id: string,
+      data: CollectionModelObject,
+      params?: RequestParams,
+    ) => Promise<HttpResponse<CollectionModelAccount, any>>;
+    /**
+     * @description get-account-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name FollowPropertyReferenceEventplanGet
+     * @request GET:/eventPlans/{id}/confirmedUsers/{propertyId}
+     */
+    followPropertyReferenceEventplanGet: (
+      id: string,
+      propertyId: string,
+      params?: RequestParams,
+    ) => Promise<HttpResponse<CollectionModelAccount, void>>;
+    /**
+     * @description delete-account-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name DeletePropertyReferenceIdEventplanDelete
+     * @request DELETE:/eventPlans/{id}/confirmedUsers/{propertyId}
+     */
+    deletePropertyReferenceIdEventplanDelete: (
+      id: string,
+      propertyId: string,
+      params?: RequestParams,
+    ) => Promise<HttpResponse<void, void>>;
+    /**
+     * @description get-account-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name FollowPropertyReferenceEventplanGet21
+     * @request GET:/eventPlans/{id}/host
+     */
+    followPropertyReferenceEventplanGet21: (
+      id: string,
+      params?: RequestParams,
+    ) => Promise<HttpResponse<EntityModelAccount, void>>;
+    /**
+     * @description update-account-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name CreatePropertyReferenceEventplanPut1
+     * @request PUT:/eventPlans/{id}/host
+     */
+    createPropertyReferenceEventplanPut1: (
+      id: string,
+      data: CollectionModelObject,
+      params?: RequestParams,
+    ) => Promise<HttpResponse<EntityModelAccount, any>>;
+    /**
+     * @description delete-account-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name DeletePropertyReferenceEventplanDelete1
+     * @request DELETE:/eventPlans/{id}/host
+     */
+    deletePropertyReferenceEventplanDelete1: (id: string, params?: RequestParams) => Promise<HttpResponse<void, void>>;
+    /**
+     * @description patch-account-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name CreatePropertyReferenceEventplanPatch1
+     * @request PATCH:/eventPlans/{id}/host
+     */
+    createPropertyReferenceEventplanPatch1: (
+      id: string,
+      data: CollectionModelObject,
+      params?: RequestParams,
+    ) => Promise<HttpResponse<EntityModelAccount, any>>;
+    /**
+     * @description get-account-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name FollowPropertyReferenceEventplanGet2
+     * @request GET:/eventPlans/{id}/host/{propertyId}
+     */
+    followPropertyReferenceEventplanGet2: (
+      id: string,
+      propertyId: string,
+      params?: RequestParams,
+    ) => Promise<HttpResponse<EntityModelAccount, void>>;
+    /**
+     * @description delete-account-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name DeletePropertyReferenceIdEventplanDelete1
+     * @request DELETE:/eventPlans/{id}/host/{propertyId}
+     */
+    deletePropertyReferenceIdEventplanDelete1: (
+      id: string,
+      propertyId: string,
+      params?: RequestParams,
+    ) => Promise<HttpResponse<void, void>>;
+    /**
+     * @description get-account-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name FollowPropertyReferenceEventplanGet31
+     * @request GET:/eventPlans/{id}/invitedUsers
+     */
+    followPropertyReferenceEventplanGet31: (
+      id: string,
+      params?: RequestParams,
+    ) => Promise<HttpResponse<CollectionModelAccount, void>>;
+    /**
+     * @description update-account-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name CreatePropertyReferenceEventplanPut2
+     * @request PUT:/eventPlans/{id}/invitedUsers
+     */
+    createPropertyReferenceEventplanPut2: (
+      id: string,
+      data: CollectionModelObject,
+      params?: RequestParams,
+    ) => Promise<HttpResponse<CollectionModelAccount, any>>;
+    /**
+     * @description delete-account-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name DeletePropertyReferenceEventplanDelete2
+     * @request DELETE:/eventPlans/{id}/invitedUsers
+     */
+    deletePropertyReferenceEventplanDelete2: (id: string, params?: RequestParams) => Promise<HttpResponse<void, void>>;
+    /**
+     * @description patch-account-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name CreatePropertyReferenceEventplanPatch2
+     * @request PATCH:/eventPlans/{id}/invitedUsers
+     */
+    createPropertyReferenceEventplanPatch2: (
+      id: string,
+      data: CollectionModelObject,
+      params?: RequestParams,
+    ) => Promise<HttpResponse<CollectionModelAccount, any>>;
+    /**
+     * @description get-account-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name FollowPropertyReferenceEventplanGet3
+     * @request GET:/eventPlans/{id}/invitedUsers/{propertyId}
+     */
+    followPropertyReferenceEventplanGet3: (
+      id: string,
+      propertyId: string,
+      params?: RequestParams,
+    ) => Promise<HttpResponse<CollectionModelAccount, void>>;
+    /**
+     * @description delete-account-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name DeletePropertyReferenceIdEventplanDelete2
+     * @request DELETE:/eventPlans/{id}/invitedUsers/{propertyId}
+     */
+    deletePropertyReferenceIdEventplanDelete2: (
+      id: string,
+      propertyId: string,
+      params?: RequestParams,
+    ) => Promise<HttpResponse<void, void>>;
+    /**
+     * @description get-genre-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name FollowPropertyReferenceEventplanGet41
+     * @request GET:/eventPlans/{id}/selectedGenres
+     */
+    followPropertyReferenceEventplanGet41: (
+      id: string,
+      params?: RequestParams,
+    ) => Promise<HttpResponse<CollectionModelGenre, void>>;
+    /**
+     * @description update-genre-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name CreatePropertyReferenceEventplanPut3
+     * @request PUT:/eventPlans/{id}/selectedGenres
+     */
+    createPropertyReferenceEventplanPut3: (
+      id: string,
+      data: CollectionModelObject,
+      params?: RequestParams,
+    ) => Promise<HttpResponse<CollectionModelGenre, any>>;
+    /**
+     * @description delete-genre-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name DeletePropertyReferenceEventplanDelete3
+     * @request DELETE:/eventPlans/{id}/selectedGenres
+     */
+    deletePropertyReferenceEventplanDelete3: (id: string, params?: RequestParams) => Promise<HttpResponse<void, void>>;
+    /**
+     * @description patch-genre-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name CreatePropertyReferenceEventplanPatch3
+     * @request PATCH:/eventPlans/{id}/selectedGenres
+     */
+    createPropertyReferenceEventplanPatch3: (
+      id: string,
+      data: CollectionModelObject,
+      params?: RequestParams,
+    ) => Promise<HttpResponse<CollectionModelGenre, any>>;
+    /**
+     * @description get-genre-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name FollowPropertyReferenceEventplanGet4
+     * @request GET:/eventPlans/{id}/selectedGenres/{propertyId}
+     */
+    followPropertyReferenceEventplanGet4: (
+      id: string,
+      propertyId: string,
+      params?: RequestParams,
+    ) => Promise<HttpResponse<CollectionModelGenre, void>>;
+    /**
+     * @description delete-genre-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name DeletePropertyReferenceIdEventplanDelete3
+     * @request DELETE:/eventPlans/{id}/selectedGenres/{propertyId}
+     */
+    deletePropertyReferenceIdEventplanDelete3: (
+      id: string,
+      propertyId: string,
+      params?: RequestParams,
+    ) => Promise<HttpResponse<void, void>>;
+    /**
+     * @description get-movie-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name FollowPropertyReferenceEventplanGet51
+     * @request GET:/eventPlans/{id}/selectedMovies
+     */
+    followPropertyReferenceEventplanGet51: (
+      id: string,
+      params?: RequestParams,
+    ) => Promise<HttpResponse<CollectionModelMovie, void>>;
+    /**
+     * @description update-movie-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name CreatePropertyReferenceEventplanPut4
+     * @request PUT:/eventPlans/{id}/selectedMovies
+     */
+    createPropertyReferenceEventplanPut4: (
+      id: string,
+      data: CollectionModelObject,
+      params?: RequestParams,
+    ) => Promise<HttpResponse<CollectionModelMovie, any>>;
+    /**
+     * @description delete-movie-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name DeletePropertyReferenceEventplanDelete4
+     * @request DELETE:/eventPlans/{id}/selectedMovies
+     */
+    deletePropertyReferenceEventplanDelete4: (id: string, params?: RequestParams) => Promise<HttpResponse<void, void>>;
+    /**
+     * @description patch-movie-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name CreatePropertyReferenceEventplanPatch4
+     * @request PATCH:/eventPlans/{id}/selectedMovies
+     */
+    createPropertyReferenceEventplanPatch4: (
+      id: string,
+      data: CollectionModelObject,
+      params?: RequestParams,
+    ) => Promise<HttpResponse<CollectionModelMovie, any>>;
+    /**
+     * @description get-movie-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name FollowPropertyReferenceEventplanGet5
+     * @request GET:/eventPlans/{id}/selectedMovies/{propertyId}
+     */
+    followPropertyReferenceEventplanGet5: (
+      id: string,
+      propertyId: string,
+      params?: RequestParams,
+    ) => Promise<HttpResponse<CollectionModelMovie, void>>;
+    /**
+     * @description delete-movie-by-eventplan-Id
+     *
+     * @tags event-plan-property-reference-controller
+     * @name DeletePropertyReferenceIdEventplanDelete4
+     * @request DELETE:/eventPlans/{id}/selectedMovies/{propertyId}
+     */
+    deletePropertyReferenceIdEventplanDelete4: (
+      id: string,
+      propertyId: string,
+      params?: RequestParams,
+    ) => Promise<HttpResponse<void, void>>;
+  };
   genres: {
     /**
      * @description get-genre
@@ -669,9 +1113,17 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      *
      * @tags profile-controller
      * @name Descriptor112
-     * @request GET:/profile/genres
+     * @request GET:/profile/eventPlans
      */
     descriptor112: (params?: RequestParams) => Promise<HttpResponse<string, any>>;
+    /**
+     * No description
+     *
+     * @tags profile-controller
+     * @name Descriptor113
+     * @request GET:/profile/genres
+     */
+    descriptor113: (params?: RequestParams) => Promise<HttpResponse<string, any>>;
     /**
      * No description
      *
@@ -690,6 +1142,16 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * @request POST:/login
      */
     userLogin: (data: LoginData, params?: RequestParams) => Promise<HttpResponse<Account, any>>;
+  };
+  usernames: {
+    /**
+     * No description
+     *
+     * @tags account-controller
+     * @name GetAllUsernames
+     * @request GET:/usernames
+     */
+    getAllUsernames: (params?: RequestParams) => Promise<HttpResponse<string[], any>>;
   };
 }
 export {};
